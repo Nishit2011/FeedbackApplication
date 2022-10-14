@@ -6,17 +6,28 @@ import { useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
-  const [value, setValue] = useState({ rate: 0, text: "" });
+  const [value, setValue] = useState([{ rate: 0, text: null }]);
+  const [loading, setLoading] = useState(true);
+  const [avg, setAvg] = useState(0);
+
+  let total = 0;
 
   const getValue = ({ rate, text }) => {
-    console.log(rate, text);
-    setValue({ rate, text });
+    if (rate !== null) setLoading(false);
+    let arr = [...value];
+    arr.push({ rate: Number(rate), text });
+    arr = arr.filter((el) => el.rate !== 0);
+    arr.map((el) => (total += el.rate));
+    let average = (total / arr.length).toFixed(2);
+    setAvg(average);
+    setValue(arr);
   };
   return (
     <div className="App">
       <header>Feedback Application</header>
       <PointsContainer getValue={(val) => getValue(val)} />
-      <Results value={value} />
+
+      {!loading ? <Results data={value} avg={avg} /> : <></>}
     </div>
   );
 }

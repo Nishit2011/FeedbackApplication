@@ -6,18 +6,19 @@ import { getValue } from "@testing-library/user-event/dist/utils";
 const Form = ({ getValue, rate }) => {
   const [text, setText] = useState("");
   const getTextData = (e) => {
-    e.preventDefault();
     setText(e.target.value);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(rate, text);
     getValue({ rate, text });
+    setText("");
   };
   return (
-    <div>
-      <Input getTextData={getTextData} text={text} />
-      <Button submitHandler={submitHandler} />
+    <div className="form-container">
+      <Input getTextData={(e) => getTextData(e)} text={text} />
+      <Button submitHandler={(e) => submitHandler(e)} />
     </div>
   );
 };

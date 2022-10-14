@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from "react";
-import Button from "../reusables/Button";
-import Input from "../reusables/Input";
+
 import Form from "./Form";
-import Results from "./Results";
 
 const PointsContainer = ({ getValue }) => {
-  const [rate, setRate] = useState();
+  const [rate, setRate] = useState(null);
+  const [isActive, setIsActive] = useState(false);
   const getItem = (e) => {
     e.preventDefault();
     setRate(e.target.id);
   };
 
-  return (
-    <div>
-      <h3>Please provide a rating to our service</h3>
+  const renderItems = () => {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-      <ul onClick={(e) => getItem(e)}>
-        <li id={1}>1</li>
-        <li id={2}>2</li>
-        <li id={3}>3</li>
-        <li id={4}>4</li>
-        <li id={5}>5</li>
-        <li id={6}>6</li>
-        <li id={7}>7</li>
-        <li id={8}>8</li>
-        <li id={9}>9</li>
-        <li id={10}>10</li>
-      </ul>
+    return arr.map((el, index) => {
+      return (
+        <li
+          key={index}
+          onClick={(e) => getItem(e)}
+          id={el}
+          className={el === Number(rate) ? "active" : "inactive"}
+        >
+          {el}
+        </li>
+      );
+    });
+  };
+
+  return (
+    <div className="container">
+      <h4>Please provide a rating to our service</h4>
+
+      <ul className="points-list">{renderItems()}</ul>
       <Form getValue={(val) => getValue(val)} rate={rate} />
     </div>
   );

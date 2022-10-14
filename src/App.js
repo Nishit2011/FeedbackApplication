@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import PointsContainer from "./components/PointsContainer";
+import Results from "./components/Results";
+import { useState } from "react";
 
 function App() {
+  const [text, setText] = useState("");
+  const [value, setValue] = useState({ rate: 0, text: "" });
+
+  const getValue = ({ rate, text }) => {
+    console.log(rate, text);
+    setValue({ rate, text });
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header>Feedback Application</header>
+      <PointsContainer getValue={(val) => getValue(val)} />
+      <Results value={value} />
     </div>
   );
 }

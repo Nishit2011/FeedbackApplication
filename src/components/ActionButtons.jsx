@@ -1,10 +1,10 @@
 import React from "react";
 import Edit from "./Edit";
 import Delete from "./Delete";
-const ActionButtons = ({ rate, deleteHandler }) => {
+const ActionButtons = ({ rate, deleteFeedback }) => {
   return (
     <div className="action-btn-container">
-      <Edit /> <Delete deleteHandler={() => deleteHandler(rate)} />
+      <Edit /> <Delete deleteFeedback={() => deleteFeedback(rate)} />
     </div>
   );
 };

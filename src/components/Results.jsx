@@ -4,14 +4,7 @@ import Delete from "./Delete";
 import Edit from "./Edit";
 import { RatePointsContext } from "./PointsContainer";
 
-const Results = ({ data, avg }) => {
-  const deleteHandler = (val) => {
-    let arr = [...data];
-
-    arr.filter((el) => el.rate === val);
-    console.log("delete arr--->", arr);
-  };
-
+const Results = ({ data, avg, deleteFeedbackFn }) => {
   return (
     <div>
       <div className="rating-header">
@@ -25,7 +18,7 @@ const Results = ({ data, avg }) => {
               <div className="rating-content">
                 <span className="rating">{el.rate}</span> {el.text}
                 <ActionButtons
-                  deleteHandler={() => deleteHandler(el.rate)}
+                  deleteFeedback={() => deleteFeedbackFn(el.rate)}
                   data={data}
                 />
               </div>

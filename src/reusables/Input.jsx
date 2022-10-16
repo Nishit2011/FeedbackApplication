@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { EditedDataContext } from "../App";
 
 const Input = ({ getTextData, text }) => {
+  const editedVal = useContext(EditedDataContext);
   return (
     <div>
       <input

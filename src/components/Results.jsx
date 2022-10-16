@@ -4,7 +4,7 @@ import Delete from "./Delete";
 import Edit from "./Edit";
 import { RatePointsContext } from "./PointsContainer";
 
-const Results = ({ data, avg, deleteFeedbackFn }) => {
+const Results = ({ data, avg, deleteFeedbackFn, editFeedbackFn }) => {
   return (
     <div>
       <div className="rating-header">
@@ -19,6 +19,8 @@ const Results = ({ data, avg, deleteFeedbackFn }) => {
                 <span className="rating">{el.rate}</span> {el.text}
                 <ActionButtons
                   deleteFeedback={() => deleteFeedbackFn(el.rate)}
+                  editFeedback={() => editFeedbackFn(el)}
+                  item={el}
                   data={data}
                 />
               </div>

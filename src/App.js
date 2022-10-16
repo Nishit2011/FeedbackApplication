@@ -2,13 +2,16 @@ import logo from "./logo.svg";
 import "./App.css";
 import PointsContainer from "./components/PointsContainer";
 import Results from "./components/Results";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
+
+export const EditedDataContext = createContext();
 
 function App() {
   const [text, setText] = useState("");
-  const [value, setValue] = useState([{ rate: 0, text: null }]);
+  const [value, setValue] = useState([{ id: 0, rate: 0, text: null }]);
   const [loading, setLoading] = useState(true);
   const [avg, setAvg] = useState(0);
+  const [editedData, setEditedData] = useState();
 
   let total = 0;
 
@@ -36,6 +39,10 @@ function App() {
     setValue(arr);
   };
 
+  const editFeedback = (item) => {
+    setEditedData(item);
+  };
+
   useEffect(() => {
     calculateAvg();
   }, [value]);
@@ -43,17 +50,20 @@ function App() {
   return (
     <div className="App">
       <header>Feedback Application</header>
-      <PointsContainer getValue={(val) => getValue(val)} />
+      <EditedDataContext.Provider value={editedData}>
+        <PointsContainer getValue={(val) => getValue(val)} />
 
-      {!loading ? (
-        <Results
-          data={value}
-          avg={avg}
-          deleteFeedbackFn={(item) => deleteFeedback(item)}
-        />
-      ) : (
-        <></>
-      )}
+        {!loading ? (
+          <Results
+            data={value}
+            avg={avg !== NaN ? avg : 0}
+            deleteFeedbackFn={(item) => deleteFeedback(item)}
+            editFeedbackFn={(item) => editFeedback(item)}
+          />
+        ) : (
+          <></>
+        )}
+      </EditedDataContext.Provider>
     </div>
   );
 }

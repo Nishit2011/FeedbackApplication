@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of the source code to the working directory
 COPY . .
 
-# Expose port 3000 to the host
+# Expose port 3000 top the host
 EXPOSE 3000
 
 # Run the React application
